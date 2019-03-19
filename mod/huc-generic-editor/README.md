@@ -1,0 +1,1 @@
+**NOTE**: This is just a dummy directory. Replace it by (a soft link to) a checkout of the [huc-generic-editor](https://github.com/knaw-huc/huc-generic-editor.git) if you want to develop it locally. Otherwise leave the directory like it is, and the Docker build will checkout the latest version.

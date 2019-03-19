@@ -7,11 +7,11 @@
         <link rel="stylesheet" href="css/style.css" type="text/css" />
         <link rel="stylesheet" href="css/ccfstyle.css" type="text/css" />
         <link rel="stylesheet" href="css/autocomplete.css" type="text/css" />
-        <script type="text/javascript" src="{$home_path}js/jquery-3.2.1.min.js"></script>
-        <script type="text/javascript" src="{$home_path}js/jquery.autocomplete.js"></script>
-        <script type="text/javascript" src="{$home_path}js/ccf_config{if !isset($lang)}_en{else}_{$lang}{/if}.js"></script>
-        <script type="text/javascript" src="{$home_path}js/ccfparser.js"></script>
-        <script type="text/javascript" src="{$home_path}js/ccforms.js"></script>
+        <script type="text/javascript" src="{$home_path}js/lib/jquery-3.2.1.min.js"></script>
+        <script type="text/javascript" src="{$home_path}js/lib/jquery.autocomplete.js"></script>
+        <script type="text/javascript" src="{$home_path}js/config/ccf_config{if !isset($lang)}_en{else}_{$lang}{/if}.js"></script>
+        <script type="text/javascript" src="{$home_path}js/src/ccfparser.js"></script>
+        <script type="text/javascript" src="{$home_path}js/src/ccforms.js"></script>
         <script>
             obj = {$json};
             $('document').ready(function(){literal}{{/literal}

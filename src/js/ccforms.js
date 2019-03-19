@@ -1,5 +1,5 @@
 function setEvents() {
-    var home = 'http://www.huc.localhost/clarin_cmdi_forms';
+    var home = 'http://localhost/ccf';
 
     $("#profileDataNavigator li").on("click", function () {
         if (!$(this).hasClass("profileDataActiveTab"))

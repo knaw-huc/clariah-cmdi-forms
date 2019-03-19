@@ -18,9 +18,23 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
+-- --------------------------------------------------------
+
 --
--- Database: `cmdi_forms`
+-- user foo:bar
 --
+
+CREATE USER 'foo'@'localhost' IDENTIFIED BY 'bar';
+GRANT ALL PRIVILEGES ON cmdi_forms . * TO 'foo'@'localhost';
+
+-- --------------------------------------------------------
+
+--
+-- Databank: `cmdi_forms`
+--
+
+CREATE DATABASE IF NOT EXISTS `cmdi_forms` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+USE `cmdi_forms`;
 
 -- --------------------------------------------------------
 
