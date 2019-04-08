@@ -49,6 +49,12 @@ ADD docker/supervisor/start.sh /start.sh
 RUN	chmod u+x /start.sh
 ENTRYPOINT /start.sh
 
+# scripts
+RUN mkdir -p /app/bin
+ADD docker/scripts/* /app/bin/
+RUN	chmod u+x /app/bin/*
+ENV PATH=/app/bin:$PATH
+
 #
 # Install the app
 #
@@ -108,6 +114,7 @@ RUN service supervisor start &&\
     sleep 10 &&\
     supervisorctl status &&\
     mysql < /var/www/html/ccf/sample_db/cmdi_forms.sql &&\
+    ccf-add-profile.sh TestProfile "Profile to test CLARIAH CMDI Forms" &&\
     supervisorctl stop all &&\
 	service supervisor stop
 
