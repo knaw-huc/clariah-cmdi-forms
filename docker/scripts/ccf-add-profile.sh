@@ -24,11 +24,29 @@ if [ "$#" -gt 2 ]; then
     WHOAMI="${3}"
 fi
 
+if [ ! -f ${DATA}/profiles/${PROF}.xml ]; then
+    echo "ERR: profile[${PROF}] file[${DATA}/profiles/${PROF}.xml] can't be found!"
+    exit 1
+fi
+
+TWEAK=''
+if [ -f ${DATA}/tweaks/${PROF}Tweak.xml ]; then
+    TWEAK="${DATA}/tweaks/${PROF}Tweak.xml"
+fi
 
 echo 'USE `'${DB}'`;' > ${TMP}/p.sql
-echo 'SET @xml = LOAD_FILE("'${DATA}'/profiles/'${PROF}'.xml");' >> ${TMP}/p.sql
-echo 'INSERT INTO `profiles` (`name`, `description`, `content`, `owner`, `created`, `language`) VALUES ('"'${PROF}', '${DESCR}', @xml, '`${WHOAMI}`', '`${DATE} -Idate`', 'en');" >> ${TMP}/p.sql
+echo 'SET @prf = LOAD_FILE("'${DATA}'/profiles/'${PROF}'.xml");' >> ${TMP}/p.sql
+if [ -z ${TWEAK} ]; then
+    echo 'INSERT INTO `profiles` (`name`, `description`, `content`, `owner`, `created`, `language`) VALUES ('"'${PROF}', '${DESCR}', @prf, '`${WHOAMI}`', '`${DATE} -Idate`', 'en');" >> ${TMP}/p.sql
+else
+    echo 'SET @twk = LOAD_FILE("'${TWEAK}'");' >> ${TMP}/p.sql
+    echo 'INSERT INTO `profiles` (`name`, `description`, `content`, `tweak`, `owner`, `created`, `language`) VALUES ('"'${PROF}', '${DESCR}', @prf, @twk, '`${WHOAMI}`', '`${DATE} -Idate`', 'en');" >> ${TMP}/p.sql
+fi
 
 mysql < ${TMP}/p.sql
 
-echo "INF: Added profile[${PROF}] to the CCF simple CMDI editor"
+if [ -z ${TWEAK} ]; then
+    echo "INF: Added profile[${PROF}] to the CCF simple CMDI editor (without tweak)"
+else
+    echo "INF: Added profile[${PROF}] to the CCF simple CMDI editor (with tweak)"
+fi
