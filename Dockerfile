@@ -68,7 +68,7 @@ ADD mod/clariah-cmdi-parser /var/www/html/ccf/clariah-cmdi-parser
 RUN if [ ! -f clariah-cmdi-parser/LICENSE  ]; then rm -rf ./clariah-cmdi-parser && git clone https://github.com/knaw-huc/clariah-cmdi-parser.git; fi
 RUN mv ./clariah-cmdi-parser/classes . &&\
     mv ./clariah-cmdi-parser/config . &&\
-    mv ./clariah-cmdi-parser/examples . &&\
+    mv ./clariah-cmdi-parser/examples ./data &&\
     mv ./clariah-cmdi-parser/tweaker . &&\
     rm -rf ./clariah-cmdi-parser
 
@@ -80,7 +80,7 @@ RUN cp -r ./clariah-cmdi-forms/classes/* ./classes/ &&\
     cp -r ./clariah-cmdi-forms/config/* ./config/ &&\
     mv ./clariah-cmdi-forms/convert . &&\
     cp -r ./clariah-cmdi-forms/css/* ./css/ &&\
-    mv ./clariah-cmdi-forms/data . &&\
+    cp -r ./clariah-cmdi-forms/data/* ./data/ &&\
     mv ./clariah-cmdi-forms/img . &&\
     mv ./clariah-cmdi-forms/includes . &&\
     cp ./clariah-cmdi-forms/js/ccforms.js ./js/src &&\
