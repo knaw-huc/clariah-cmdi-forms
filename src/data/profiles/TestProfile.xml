@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ComponentSpec isProfile="true" CMDVersion="1.2" CMDOriginalVersion="1.2" xsi:noNamespaceSchemaLocation="https://infra.clarin.eu/CMDI/1.x/xsd/cmd-component.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <Header>
+        <ID>clarin.eu:cr1:p_1554718024401</ID>
+        <Name>TestProfile</Name>
+        <Description>Test profile for CLARIAH CMDI Forms (CCF)</Description>
+        <Status>development</Status>
+    </Header>
+    <Component name="TestProfile" CardinalityMin="1" CardinalityMax="1">
+        <Component name="MyComponent" CardinalityMin="1" CardinalityMax="1">
+            <Element name="myElement" CardinalityMin="1" CardinalityMax="1" cue:DisplayPriority="1" xmlns:cue="http://www.clarin.eu/cmdi/cues/1">
+                <AttributeList>
+                    <Attribute name="myAttribute" ValueScheme="string" Required="true"/>
+                </AttributeList>
+                <ValueScheme>
+                    <pattern>[Cc][Cc][Ff]</pattern>
+                </ValueScheme>
+            </Element>
+        </Component>
+    </Component>
+</ComponentSpec>
