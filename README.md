@@ -25,6 +25,6 @@ Now visit http://localhost/ccf/ in your browser.
 
 ### Publications, presentations & demonstrations
 
-1. R. Zeeman, M. Windhouwer. Tweak Your CMDI Forms to the Max. Demonstration at the *[CLARIAH Toogdag](https://www.clariah.nl/en/events/toog-day-2019), Hilversum, The Netherlands, April 5, 2019. 
+1. R. Zeeman, M. Windhouwer. Tweak Your CMDI Forms to the Max. Demonstration at the *[CLARIAH Toogdag](https://www.clariah.nl/en/events/toog-day-2019)*, Hilversum, The Netherlands, April 5, 2019. 
 2. R. Zeeman, M. Windhouwer. [Tweak Your CMDI Forms to the Max](https://office.clarin.eu/v/CE-2018-1292-CLARIN2018_ConferenceProceedings.pdf#page=102). Presented at the *[CLARIN Annual Conference](https://www.clarin.eu/event/2018/clarin-annual-conference-2018-pisa-italy)*, Pisa, Italy, October 8-10, 2018.
 3. R. Zeeman, M. Windhouwer. Component Metadata & TLA-FLAT. Demonstration at the *[CLARIAH Toogdag](https://www.clariah.nl/evenementen/toog-dag-2018)*. The Hague, The Netherlands, March 9, 2018. 
