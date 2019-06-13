@@ -1,8 +1,6 @@
-<<<<<<< HEAD
 .idea/
 mod/
 =======
 .DS_Store
 *.log
 mod/**/*
->>>>>>> 83fac7e9a34ee621d23ecdc1eed7b0f1b1f89c4b

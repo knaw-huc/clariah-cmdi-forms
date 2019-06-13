@@ -22,10 +22,15 @@
 
     <div id="profileData">
         <ul id="profileDataNavigator">
-            <li id="profileXMLTab"{if $state == 'profile'} class="profileDataActiveTab"{/if}>Profile</li>
-            <!--<li id="profileJSONTab">JSON</li>-->
-            <li id="profileTweakTab">Tweak</li>
-            <li id="profileRecordsTab"{if $state == 'records'} class="profileDataActiveTab"{/if}>Records</li>
+            {if $profileTab == 1}
+                <li id="profileXMLTab"{if $state == 'profile'} class="profileDataActiveTab"{/if}>Profile</li>
+            {/if}
+            {if $tweakTab == 1}
+                <li id="profileTweakTab">Tweak</li>
+            {/if}
+            {if $recordsTab == 1}
+                <li id="profileRecordsTab"{if $state == 'records'} class="profileDataActiveTab"{/if}>Records</li>
+            {/if}
         </ul>
         <div id="profileDetails">
             <div id="profileXML" {if $state == 'records'} class="noView"{/if}><textarea class="viewText" readonly="yes">{$profile.content}</textarea></div>

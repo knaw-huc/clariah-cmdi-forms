@@ -78,11 +78,19 @@ function show_profile($profile, $state = 'profile') {
     global $smarty;
     global $db;
 
+    $smarty->configLoad(ROOT . 'config/my.conf', 'Tabs');
+    $profileTab = $smarty->getConfigVars('profileTab');
+    $tweakTab = $smarty->getConfigVars('tweakTab');
+    $recordsTab = $smarty->getConfigVars('recordsTab');
+
     $parser = new Ccfparser();
     $profile["json"] = $parser->cmdi2json($profile["content"]);
     //$profile["parsed"] = $parser->parseTweak($profile["tweak"]);
     $mdRecords = $db->getMetadataRecords($profile["profile_id"]);
-   
+
+    $smarty->assign('profileTab', $profileTab);
+    $smarty->assign('tweakTab', $tweakTab);
+    $smarty->assign('recordsTab', $recordsTab);
     $smarty->assign('state', $state);
     $smarty->assign('records', $mdRecords);
     $smarty->assign('profile', $profile);
