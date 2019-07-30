@@ -38,7 +38,7 @@
             <div id="tweakXML" class="noView"><textarea class="viewText" readonly="yes">{$profile.tweak}</textarea></div>
             <div id="metadataRecs" {if $state != 'records'}class="noView"{/if}>
                 <table id="resultTable">
-                    <tr><th>Title</th><th>Status</th><th>Creator</th><th>Creation date</th><th><a href="{$home_path}index.php?page=new_rec&profile={$profile.profile_id}" id="addRec">+</a></th></tr>
+                    <tr><th>Title</th><th>Status</th><th>Creator</th><th>Creation date</th><th><a href="{$home_path}index.php?page=new_rec&profile={$profile.profile_id}" id="addRec"><img src="{$home_path}img/add.ico" height="16px" width="16px"></a></th><th></th><th></th></th></tr>
                             {foreach from=$records item=record}
                         <tr class="{cycle values="odd,even"}">
                             <td>{$record.name}</td>
@@ -46,6 +46,8 @@
                             <td>{$record.creator}</td>
                             <td>{$record.creation_date}</td>
                             <td><a href="{$home_path}index.php?page=metadata&id={$record.id}" title="Edit metadata"><img src="{$home_path}img/edit.png" height="16px" width="16px"></a></td>
+                            <td><a href="{$home_path}index.php?page=profile&id={$record.id}&action=download_record" title="Download"><img src="{$home_path}img/download.png" height="16px" width="16px"></a></td>
+                            <td><a href="{$home_path}index.php?page=metadata&id={$record.id}" title="Delete"><img src="{$home_path}img/bin.png" height="16px" width="16px"></a></td>
                         </tr>
                     {/foreach}
                 </table> 

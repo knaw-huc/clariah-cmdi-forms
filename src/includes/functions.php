@@ -3,7 +3,8 @@
 $smarty = new Mysmarty();
 $db = new db();
 
-function show_home() {
+function show_home()
+{
     global $db;
     global $smarty;
 
@@ -13,16 +14,30 @@ function show_home() {
     $smarty->view('home');
 }
 
-function show_page($params) {
+function show_page($params)
+{
     global $db;
-    
+
     switch ($params["page"]) {
         case "profile":
             if (isset($params["id"]) && ($profile = $db->getProfile($params["id"]))) {
-                if (isset($params["state"])) {
-                    show_profile($profile[0], $params["state"]);
+                $recordId = $params["id"];
+                if (isset($params["action"])) {
+                    $action = $params["action"];
+                    if ($action == "download_record") {
+                        // download record; action download
+                        download_record($recordId);
+                    } elseif ($action == "delete_record") {
+                        // delete record; action delete
+                        delete_record($recordId);
+                    }
                 } else {
-                    show_profile($profile[0]);
+                    // no action; show profile page
+                    if (isset($params["state"])) {
+                        show_profile($profile[0], $params["state"]);
+                    } else {
+                        show_profile($profile[0]);
+                    }
                 }
             } else {
                 show_home();
@@ -30,7 +45,7 @@ function show_page($params) {
             break;
         case "metadata":
             if (isset($params["id"]) && ($profile = $db->getProfileByMetaDataID($params["id"]))) {
-                    show_metadata($profile[0]["name"], $profile[0]["language"], $params["id"]);
+                show_metadata($profile[0]["name"], $profile[0]["language"], $params["id"]);
             } else {
                 show_home();
             }
@@ -50,10 +65,11 @@ function show_page($params) {
     }
 }
 
-function add_record($profile) {
+function add_record($profile)
+{
     global $db;
     global $smarty;
-    
+
     //$profile = $_POST["profile_id"];
     $title = 'Another CMDI record';
     $md_id = $db->addRecord($title, $profile);
@@ -71,10 +87,11 @@ function add_record($profile) {
 //    $smarty->assign("profile_id", $profile);
 //    $smarty->assign("date", date("Y-m-d"));
 //    $smarty->view("newrecord");
-    
+
 //}
 
-function show_profile($profile, $state = 'profile') {
+function show_profile($profile, $state = 'profile')
+{
     global $smarty;
     global $db;
 
@@ -98,17 +115,18 @@ function show_profile($profile, $state = 'profile') {
     $smarty->view('profile');
 }
 
-function show_metadata($name, $language, $recID) {
+function show_metadata($name, $language, $recID)
+{
     global $smarty;
     $_SESSION["rec_id"] = $recID;
-    
+
     $errors = array();
     $cmdi = PROFILE_PATH . "$name.xml";
     $tweakFile = TWEAK_PATH . $name . "Tweak.xml";
     $tweaker = TWEAKER;
     $parser = new Ccfparser();
     $record = get_record_file($recID);
-     $smarty->assign('lang', $language);
+    $smarty->assign('lang', $language);
     if (!file_exists($cmdi)) {
         $errors[] = "Profile $name not found on disc!";
         show_errors($errors);
@@ -137,22 +155,73 @@ function show_metadata($name, $language, $recID) {
     }
 }
 
-function get_record_file($id){
+function get_record_file($id)
+{
     $fileName = CMDI_RECORD_PATH . "md$id/metadata/record.cmdi";
-    if (file_exists($fileName)){
+    if (file_exists($fileName)) {
         return $fileName;
-    }else{
+    } else {
         return null;
     }
 }
 
-function show_errors($errors) {
+function send_file_to_download_stream($fileName)
+{
+    $quoted = sprintf('"%s"', addcslashes(basename($fileName), '"\\'));
+    $size = filesize($fileName);
+
+    header('Content-Description: File Transfer');
+    header('Content-Type: application/octet-stream');
+    header('Content-Disposition: attachment; filename=' . $quoted);
+    header('Content-Transfer-Encoding: binary');
+    header('Connection: Keep-Alive');
+    header('Expires: 0');
+    header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+    header('Pragma: public');
+    header('Content-Length: ' . $size);
+
+    ob_clean();
+    flush();
+    readfile($fileName);
+}
+
+function download_record($id)
+{
+    $recordPath = CMDI_RECORD_PATH . "md$id";
+    $downloadName = "md$id";
+    $archiveName = "/tmp/${downloadName}.tar";
+    $archiveZipName = "/tmp/${downloadName}.tar.gz";
+
+    try {
+        unlink($archiveName);
+        unlink($archiveZipName);
+        $archive = new PharData($archiveName, null, null, Phar::TAR);
+        $archive->buildFromDirectory($recordPath);
+        $archive->compress(Phar::GZ);
+        send_file_to_download_stream($archiveZipName);
+        return true;
+    } catch (Exception $e) {
+        echo "Error: ", $e->getMessage(), "\n";
+        return false;
+    }
+
+    return null;
+}
+
+function delete_record($id)
+{
+
+}
+
+function show_errors($errors)
+{
     $this->smarty->assign('errors', $errors);
     $this->smarty->assign('title', 'Error!');
     $this->smarty->view('errors');
 }
 
-function create_map($filename) {
+function create_map($filename)
+{
     if (!file_exists($filename)) {
         mkdir($filename);
     }
