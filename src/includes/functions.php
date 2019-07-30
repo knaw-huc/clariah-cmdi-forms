@@ -20,27 +20,27 @@ function show_page($params)
 
     switch ($params["page"]) {
         case "profile":
-            if (isset($params["id"]) && ($profile = $db->getProfile($params["id"]))) {
+            if (isset($params["action"])) {
                 $recordId = $params["id"];
-                if (isset($params["action"])) {
-                    $action = $params["action"];
-                    if ($action == "download_record") {
-                        // download record; action download
-                        download_record($recordId);
-                    } elseif ($action == "delete_record") {
-                        // delete record; action delete
-                        delete_record($recordId);
-                    }
-                } else {
-                    // no action; show profile page
+                $action = $params["action"];
+                if ($action == "download_record") {
+                    // download record; action download
+                    download_record($recordId);
+                } elseif ($action == "delete_record") {
+                    // delete record; action delete
+                    $profile_id = $params["profile_id"];
+                    delete_record($recordId);
+                    header("Location: " . BASE_URL . "index.php?page=profile&id=$profile_id&state=records");
+                }
+            } else {
+                // no action; show profile page
+                if (isset($params["id"]) && ($profile = $db->getProfile($params["id"]))) {
                     if (isset($params["state"])) {
                         show_profile($profile[0], $params["state"]);
                     } else {
                         show_profile($profile[0]);
                     }
                 }
-            } else {
-                show_home();
             }
             break;
         case "metadata":
@@ -80,15 +80,6 @@ function add_record($profile)
     create_map("$mapName/metadata");
     header("Location: " . BASE_URL . "index.php?page=metadata&id=$md_id");
 }
-
-//function new_rec($profile, $name) {
-//    global $smarty;
-//    $smarty->assign("profileName", $name);
-//    $smarty->assign("profile_id", $profile);
-//    $smarty->assign("date", date("Y-m-d"));
-//    $smarty->view("newrecord");
-
-//}
 
 function show_profile($profile, $state = 'profile')
 {
@@ -205,12 +196,22 @@ function download_record($id)
         return false;
     }
 
-    return null;
 }
 
 function delete_record($id)
 {
+    global $db;
 
+    $folderToRemove = sprintf("%s/%s/%s", CMDI_RECORD_PATH, METADATA_PATH, METADATA_FILENAME);
+    try {
+        $db->removeRecord($id);
+        rmdir($folderToRemove);
+
+        return true;
+    } catch (Exception $e) {
+        echo "Error: ", $e->getMessage(), "\n";
+        return false;
+    }
 }
 
 function show_errors($errors)

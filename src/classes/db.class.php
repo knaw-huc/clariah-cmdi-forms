@@ -33,12 +33,23 @@ class db {
         }
     }
     
-    function getCMDI($id)
+    function checkRecordById($id)
     {
-        $results = $this->con->query("SELECT content FROM metadata_records WHERE id = $id");
+        $results = $this->con->query("SELECT `id` FROM metadata_records WHERE id = $id");
         $results = $this->_resultsToArray($results);
-        if (count($results)) {
-            return $results[0]["content"];
+
+        if (count($results) == 1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function removeRecord($id) {
+
+        if ($this->checkRecordById($id)) {
+            $results = $this->con->query("DELETE FROM metadata_records WHERE id = ${id} LIMIT 1;");
+            return $results;
         } else {
             return false;
         }
@@ -62,6 +73,7 @@ class db {
         while ($row = $results->fetch_assoc()) {
             $resultArray[] = $row;
         }
+
         return $resultArray;
     }
 
