@@ -21,6 +21,7 @@ function show_page($params)
     switch ($params["page"]) {
         case "profile":
             if (isset($params["action"])) {
+                // with action defined, we check the action first
                 $recordId = $params["id"];
                 $action = $params["action"];
                 if ($action == "download_record") {
