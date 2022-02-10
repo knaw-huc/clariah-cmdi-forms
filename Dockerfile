@@ -37,7 +37,7 @@ RUN	apt-get -y install mariadb-server mariadb-client
 RUN mkdir -p /var/log/mariadb
 
 # PHP
-RUN apt-get -y install libapache2-mod-php php-mysqli php-xml
+RUN apt-get -y install libapache2-mod-php php-mysqli php-xml php-curl
 
 # GIT
 RUN	apt-get -y install supervisor git
