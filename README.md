@@ -12,12 +12,13 @@ You can already try out this beta version, but please check back to see new feat
 You can use [Docker](https://www.docker.com/get-started) to quickly build and run the application:
 
 ```sh
-git clone https://github.com/knaw-huc/service-huc-editor.git
-docker build -t ccf .
-docker run -p 1210:1210 --name=ccf --rm -it ccf
+
+docker run -p 1210:1210 --name=ccf --rm -it ghcr.io/knaw-huc/service-huc-editor:2.0-RC1
+curl -v -X PUT -H 'Authorization: Bearer foobar' http://localhost:1210/app/HelloWorld
+
 ```
 
-Now visit http://localhost:1210/app/data-envelopes in your browser.
+Now visit http://localhost:1210/app/HelloWorld in your browser. See https://github.com/knaw-huc/service-huc-editor how to roll your own!
 
 ## Modules
 
@@ -26,7 +27,7 @@ Now visit http://localhost:1210/app/data-envelopes in your browser.
 
 ### Publications, presentations & demonstrations
 
-1. M. Windhouwer. The HuC CMDI editor: What is new? Demonstration at the *CLARIN Annual Conference](https://www.clarin.eu/event/2024/)*, Barcelona, Spain, October 16, 2024.
+1. M. Windhouwer. The HuC CMDI editor: What is new? Demonstration at the *[CLARIN Annual Conference](https://www.clarin.eu/event/2024/)*, Barcelona, Spain, October 16, 2024.
 2. R. Zeeman, M. Windhouwer. Tweak Your CMDI Forms to the Max. Demonstration at the *[CLARIAH Toogdag](https://www.clariah.nl/en/events/toog-day-2019)*, Hilversum, The Netherlands, April 5, 2019. 
 3. R. Zeeman, M. Windhouwer. [Tweak Your CMDI Forms to the Max](https://office.clarin.eu/v/CE-2018-1292-CLARIN2018_ConferenceProceedings.pdf#page=102). Presented at the *[CLARIN Annual Conference](https://www.clarin.eu/event/2018/clarin-annual-conference-2018-pisa-italy)*, Pisa, Italy, October 8-10, 2018.
 4. R. Zeeman, M. Windhouwer. Component Metadata & TLA-FLAT. Demonstration at the *[CLARIAH Toogdag](https://www.clariah.nl/evenementen/toog-dag-2018)*. The Hague, The Netherlands, March 9, 2018. 
