@@ -13,7 +13,7 @@ You can use [Docker](https://www.docker.com/get-started) to quickly build and ru
 
 ```sh
 
-docker run -p 1210:1210 --name=ccf --rm -it ghcr.io/knaw-huc/service-huc-editor:2.0-RC1
+docker run -p 1210:1210 --name=ccf --rm -it ghcr.io/knaw-huc/service-huc-editor:2.0-RC3
 curl -v -X PUT -H 'Authorization: Bearer foobar' http://localhost:1210/app/HelloWorld
 
 ```
